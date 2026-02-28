@@ -1,2 +1,2 @@
 # Airbnb_Capstone_project
-Building a from scratch a clone of the airbnb project
+Building from scratch a clone of the airbnb project as my Capstone final project.
