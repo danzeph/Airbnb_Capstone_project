@@ -12,11 +12,12 @@ class InventoryItemSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """validates quantity and price even though models handles that"""
-        if data['quantity'] <= 0:
-            raise serializers.ValidationError("Quantity cannot be negative")
-        if data['price'] <= 0:
-            raise serializers.ValidationError("price must be greater than zero")
-        return data
+        quantity = data.get('quantity')
+        price = data.get('price')
+        if price and price <=0:
+            raise serializers.ValidationError("Price cannot be negative")
+        if quantity and quantity <= 0:
+            serializers
 
     
 class InventoryChangeHistorySerializer(serializers.ModelSerializer):
