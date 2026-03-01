@@ -1,5 +1,3 @@
----
-
 ##  Inventory Management API
 
 The **Inventory Management API** is a backend capstone project built using Django and Django REST Framework.
