@@ -17,7 +17,8 @@ class InventoryItemSerializer(serializers.ModelSerializer):
         if price and price <=0:
             raise serializers.ValidationError("Price cannot be negative")
         if quantity and quantity <= 0:
-            serializers
+            raise serializers.ValidationError("Quantity can't be less than 0")
+        return data
 
     
 class InventoryChangeHistorySerializer(serializers.ModelSerializer):
