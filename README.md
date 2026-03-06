@@ -1,9 +1,3 @@
-Here is your **updated README with your live API included**. I only added what is necessary so it still looks **clean and professional on GitHub**.
-
-You can replace your current README with this:
-
----
-
 # Inventory Management API
 
 ## Overview
