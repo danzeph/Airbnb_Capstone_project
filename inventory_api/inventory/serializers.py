@@ -22,10 +22,10 @@ class InventoryItemSerializer(serializers.ModelSerializer):
 
     
 class InventoryChangeHistorySerializer(serializers.ModelSerializer):
-    """ iventory change log"""
+    """Inventory change log"""
     item_name = serializers.ReadOnlyField(source="item.name")
     changed_by = serializers.ReadOnlyField(source="changed_by.username")
 
     class Meta:
         model = InventoryChangeHistory
-        fields = "__all__"
+        fields = ['id','item_name', 'changed_by', "old_quantity","new_quantity","time_changed"]

@@ -14,12 +14,13 @@ User = get_user_model()
 class InventoryViewSet(viewsets.ModelViewSet):
     serializer_class = InventoryItemSerializer
     permission_classes = [IsAuthenticated, IsOwner]
+    ordering = ['-date_added']
     
-    filter_backends = [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = {
-            'category': ['exact'],
+            'category': ['iexact','exact'],
             'price': ['exact', 'gte', 'lte'],
-            'quantity': ['lte'],  # for low stock
+            'quantity': ['lte'],  
         }
 
     search_fields = ['name','category']
@@ -27,7 +28,10 @@ class InventoryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Filter based on ownership of item"""
+        if self.request.user.is_staff:
+            return InventoryItem.objects.all()
         return InventoryItem.objects.filter(owner=self.request.user)
+
 
     def perform_create(self, serializer):
         """save items by a user"""
@@ -53,6 +57,4 @@ class InventoryHistoryViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return InventoryChangeHistory.objects.filter(
-            item__owner=self.request.user
-        ).order_by("-time_changed")
+        return InventoryChangeHistory.objects.all().order_by("-time_changed")

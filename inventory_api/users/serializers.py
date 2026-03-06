@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
             if password or password_confirm:
                   if len(password) < 8:
-                     raise serializers.ValidationError({"password": "Password must be more than"})
+                     raise serializers.ValidationError({"password": "Password must be more than 8 characters"})
                   if password != password_confirm:
                      raise serializers.ValidationError({"password": "Passwords do not match"})
             return data
@@ -29,6 +29,9 @@ class UserSerializer(serializers.ModelSerializer):
             validated_data.pop('password_confirm')
             user = User.objects.create_user(**validated_data)
             return user
+
+
+
     
 
     
